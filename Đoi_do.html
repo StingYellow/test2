@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quy đổi sản phẩm</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      margin: 0;
+      height: 100vh;
+      align-items: center;
+    }
+    .box {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>🔄 Quy đổi giữa hai sản phẩm (lưu ý số lượng sản phẩm 1 luôn lớn hơn sản phẩm 2)</h2>
+
+    <label>Tỉ lệ Sản phẩm 1 (số lượng / 1 lúa)</label>
+    <input type="number" id="product1Rate" placeholder="VD: 350">
+
+    <label>Tỉ lệ Sản phẩm 2 (số lượng / 1 lúa)</label>
+    <input type="number" id="product2Rate" placeholder="VD: 25">
+
+    <label>Bạn có bao nhiêu Sản phẩm 1?</label>
+    <input type="number" id="product2Amount" placeholder="VD: 100">
+
+    <button id="convertButton">Tính toán quy đổi</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    // Chạy khi trang đã tải hoàn tất
+    document.addEventListener("DOMContentLoaded", function() {
+      const convertButton = document.getElementById("convertButton");
+
+      convertButton.addEventListener("click", function() {
+        const p1 = parseFloat(document.getElementById("product1Rate").value);
+        const p2 = parseFloat(document.getElementById("product2Rate").value);
+        const amount2 = parseFloat(document.getElementById("product2Amount").value);
+
+        // Kiểm tra các trường nhập vào có hợp lệ hay không
+        if (
+          isNaN(p1) || p1 <= 0 ||
+          isNaN(p2) || p2 <= 0 ||
+          isNaN(amount2) || amount2 <= 0
+        ) {
+          document.getElementById("result").innerText = "Vui lòng nhập đầy đủ và hợp lệ!";
+          return;
+        }
+
+        // Tổng đơn vị từ sản phẩm 2
+        const totalFromP2 = amount2 * p2;
+
+        // Số sản phẩm 1 tương đương
+        const result = totalFromP2 / p1;
+
+        // Hiển thị kết quả
+        document.getElementById("result").innerText =
+          `${amount2} Sản phẩm 1 tương đương khoảng ${result.toFixed(2)} Sản phẩm 2`;
+      });
+    });
+  </script>
+</body>
+</html>
